@@ -1,0 +1,165 @@
+{% extends "base.html" %}
+
+{% block title %}Screening Report – {{ scan.patient_name }} – AnemiaScan{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/print.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="report-page-actions no-print">
+  <a href="{{ url_for('dashboard.dashboard_view') }}" class="btn btn-secondary">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <line x1="19" y1="12" x2="5" y2="12"></line>
+      <polyline points="12 19 5 12 12 5"></polyline>
+    </svg>
+    <span>Back to dashboard</span>
+  </a>
+  <button type="button" onclick="window.print()" class="btn btn-primary">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <polyline points="6 9 6 2 18 2 18 9"></polyline>
+      <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+      <rect x="6" y="14" width="12" height="8"></rect>
+    </svg>
+    <span>Print report (A4)</span>
+  </button>
+</div>
+
+<article class="report-sheet">
+  <!-- Document Header -->
+  <header class="report-header">
+    <div class="report-brand">
+      <div class="report-logo">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path>
+          <circle cx="12" cy="12" r="3"></circle>
+        </svg>
+        <span class="report-title">AnemiaScan</span>
+      </div>
+      <div class="report-subtitle">Non-Invasive Conjunctival Anemia Screening Report</div>
+    </div>
+    <div class="report-meta">
+      <div><strong>Report ID:</strong> <code>{{ scan.id }}</code></div>
+      <div><strong>Date & Time:</strong> {{ scan.created_at }}</div>
+    </div>
+  </header>
+
+  <hr class="report-divider">
+
+  <!-- Patient Demographics -->
+  <section class="report-section">
+    <h3 class="section-heading">Patient Details</h3>
+    <table class="report-data-grid">
+      <tr>
+        <th>Full Name</th>
+        <td>{{ scan.patient_name }}</td>
+        <th>Age</th>
+        <td>{{ scan.patient_age }} years</td>
+      </tr>
+      <tr>
+        <th>Location / Place</th>
+        <td>{{ scan.patient_place }}</td>
+        <th>Screening Type</th>
+        <td>Palpebral Conjunctiva Image Analysis</td>
+      </tr>
+    </table>
+  </section>
+
+  <!-- Screening Results & Conjunctival Image -->
+  <section class="report-section">
+    <h3 class="section-heading">Screening Assessment</h3>
+    <div class="report-result-grid">
+      <div class="report-image-box">
+        <div class="image-box-title">Conjunctival Image Captured</div>
+        <img src="{{ url_for('reports.serve_scan_image', scan_id=scan.id) }}" alt="Conjunctival capture for {{ scan.patient_name }}" class="report-scan-img">
+        <div class="image-box-caption">Processed through security re-encoding</div>
+      </div>
+
+      <div class="report-analysis-box">
+        {% if scan.is_placeholder %}
+          <div class="report-demo-alert">
+            * Screening produced with placeholder evaluation module.
+          </div>
+        {% endif %}
+
+        <div class="report-status-badge {% if scan.status == 'Anemia' %}status-anemia{% else %}status-ok{% endif %}">
+          {% if scan.status == 'Anemia' %}
+            <strong>RESULT: ANEMIA DETECTED</strong>
+          {% else %}
+            <strong>RESULT: NON-ANEMIA (Normal Range)</strong>
+          {% endif %}
+        </div>
+
+        <div class="report-hb-display">
+          <span class="hb-num">{{ scan.hemoglobin }}</span>
+          <span class="hb-unit">g/dL</span>
+          <div class="hb-caption">Estimated Hemoglobin Concentration</div>
+        </div>
+
+        {% if scan.confidence %}
+          <div class="text-muted" style="font-size: 13px;">Screening Confidence Index: {{ (scan.confidence * 100)|round|int }}%</div>
+        {% endif %}
+      </div>
+    </div>
+  </section>
+
+  <!-- WHO Reference Standards -->
+  <section class="report-section">
+    <h3 class="section-heading">WHO Hemoglobin (Hb) Diagnostic Reference Cut-offs</h3>
+    <table class="who-reference-table">
+      <thead>
+        <tr>
+          <th>Population Group</th>
+          <th>Non-anemic Threshold</th>
+          <th>Anemia Indication</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Adult Men (15+ years)</td>
+          <td>&ge; 13.0 g/dL</td>
+          <td>&lt; 13.0 g/dL</td>
+        </tr>
+        <tr>
+          <td>Non-pregnant Women (15+ years)</td>
+          <td>&ge; 12.0 g/dL</td>
+          <td>&lt; 12.0 g/dL</td>
+        </tr>
+        <tr>
+          <td>Pregnant Women</td>
+          <td>&ge; 11.0 g/dL</td>
+          <td>&lt; 11.0 g/dL</td>
+        </tr>
+        <tr>
+          <td>Children (5 to 11 years)</td>
+          <td>&ge; 11.5 g/dL</td>
+          <td>&lt; 11.5 g/dL</td>
+        </tr>
+        <tr>
+          <td>Children (12 to 14 years)</td>
+          <td>&ge; 12.0 g/dL</td>
+          <td>&lt; 12.0 g/dL</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- Clinical & Legal Disclaimer -->
+  <section class="report-disclaimer-box">
+    <strong>Mandatory Medical Notice:</strong>
+    This report is generated by a non-invasive digital screening aid and is strictly intended for triage and risk assessment. It does <em>not</em> constitute a medical diagnosis. All screening results must be confirmed with standard laboratory complete blood count (CBC / venous blood test) and evaluated by a licensed medical practitioner.
+  </section>
+
+  <!-- Footer Sign-off -->
+  <footer class="report-footer-signoff">
+    <div>
+      <div class="signoff-line"></div>
+      <div>Screening Operator / Attendant</div>
+    </div>
+    <div>
+      <div class="signoff-line"></div>
+      <div>Verified Healthcare Professional / Clinic Stamp</div>
+    </div>
+  </footer>
+</article>
+{% endblock %}

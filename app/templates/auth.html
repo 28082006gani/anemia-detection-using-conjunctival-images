@@ -1,0 +1,335 @@
+{% extends "base.html" %}
+
+{% block title %}{% if active_tab == 'register' %}Create Account – AnemiaScan{% else %}Welcome to AnemiaScan{% endif %}{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/auth.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="auth-page-universe">
+  <!-- White and blue radiant backdrop gradient -->
+  <div class="auth-gradient-bg"></div>
+
+  <!-- Subtle fractal noise texture overlay -->
+  <div class="auth-noise-overlay"></div>
+
+  <!-- Ambient glowing spheres -->
+  <div class="glow-orb top-orb"></div>
+  <div class="glow-orb top-orb-pulse"></div>
+  <div class="glow-orb bottom-orb"></div>
+  <div class="glow-orb ambient-blob-left"></div>
+  <div class="glow-orb ambient-blob-right"></div>
+
+  <!-- 3D Card Container with perspective -->
+  <div class="card-3d-scene" id="card3dScene">
+    <div class="card-3d-tilt" id="card3dTilt">
+
+      <!-- Interactive card wrapper -->
+      <div class="card-glow-shell">
+        <!-- Traveling Light Beam Borders -->
+        <div class="light-beam-track">
+          <div class="light-beam beam-top"></div>
+          <div class="light-beam beam-right"></div>
+          <div class="light-beam beam-bottom"></div>
+          <div class="light-beam beam-left"></div>
+
+          <!-- Luminous corner spots -->
+          <div class="corner-glow corner-tl"></div>
+          <div class="corner-glow corner-tr"></div>
+          <div class="corner-glow corner-br"></div>
+          <div class="corner-glow corner-bl"></div>
+        </div>
+
+        <!-- Glassmorphism Card Core -->
+        <div class="glass-card-surface">
+          <!-- Subtle diamond/grid texture -->
+          <div class="card-inner-grid"></div>
+
+          <!-- Logo & Brand Header -->
+          <div class="auth-card-header">
+            <div class="brand-logo-badge">
+              <div class="brand-logo-inner">
+                <!-- Optical Biometric / Eye Icon -->
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="brand-icon-svg">
+                  <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path>
+                  <circle cx="12" cy="12" r="3"></circle>
+                </svg>
+              </div>
+              <div class="logo-inner-shine"></div>
+            </div>
+
+            <h1 class="auth-title-gradient" id="authCardTitle">
+              {% if active_tab == 'register' %}Create Account{% else %}Welcome to AnemiaScan{% endif %}
+            </h1>
+            <p class="auth-subtitle" id="authCardSubtitle">
+              {% if active_tab == 'register' %}Register for non-invasive conjunctival screening{% else %}Sign in to continue to AnemiaScan{% endif %}
+            </p>
+
+            <!-- Sleek Minimal Tab Switcher -->
+            <div class="auth-nav-pills" role="tablist">
+              <button type="button" class="nav-pill-btn {% if active_tab != 'register' %}active{% endif %}" id="pillLogin" role="tab" aria-selected="{% if active_tab != 'register' %}true{% else %}false{% endif %}">
+                Sign in
+              </button>
+              <button type="button" class="nav-pill-btn {% if active_tab == 'register' %}active{% endif %}" id="pillRegister" role="tab" aria-selected="{% if active_tab == 'register' %}true{% else %}false{% endif %}">
+                Create account
+              </button>
+            </div>
+          </div>
+
+          <!-- LOGIN FORM -->
+          <div class="auth-panel-pane {% if active_tab != 'register' %}active{% endif %}" id="paneLogin" role="tabpanel" aria-labelledby="pillLogin">
+            <form method="POST" action="{{ url_for('auth.login') }}" class="auth-modern-form" novalidate id="loginForm">
+              <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+              <!-- Email Field -->
+              <div class="input-field-group" data-input="email">
+                <div class="input-highlight-border"></div>
+                <div class="input-box-wrapper">
+                  <!-- Mail Icon -->
+                  <svg class="field-icon-left" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect width="20" height="16" x="2" y="4" rx="2"></rect>
+                    <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+                  </svg>
+                  <input
+                    type="email"
+                    id="login-email"
+                    name="email"
+                    class="card-text-input"
+                    placeholder="Email address"
+                    value="{{ email or '' }}"
+                    required
+                    autocomplete="username"
+                  >
+                </div>
+              </div>
+
+              <!-- Password Field -->
+              <div class="input-field-group" data-input="password">
+                <div class="input-highlight-border"></div>
+                <div class="input-box-wrapper">
+                  <!-- Lock Icon -->
+                  <svg class="field-icon-left" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect>
+                    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                  </svg>
+                  <input
+                    type="password"
+                    id="login-password"
+                    name="password"
+                    class="card-text-input"
+                    placeholder="Password"
+                    required
+                    autocomplete="current-password"
+                  >
+                  <!-- Eye toggle button -->
+                  <button type="button" class="btn-pwd-eye" data-target="login-password" title="Toggle password visibility" aria-label="Toggle password visibility">
+                    <svg class="eye-open-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path>
+                      <circle cx="12" cy="12" r="3"></circle>
+                    </svg>
+                    <svg class="eye-closed-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;">
+                      <path d="m15 18-.722-3.25"></path>
+                      <path d="M2 8a10.645 10.645 0 0 0 20 0"></path>
+                      <path d="m20 15-1.726-2.05"></path>
+                      <path d="m4 15 1.726-2.05"></path>
+                      <path d="m9 18 .722-3.25"></path>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Options Row: Remember Me & Forgot Password -->
+              <div class="auth-options-row">
+                <label class="custom-checkbox-label">
+                  <input type="checkbox" name="remember_me" class="custom-checkbox-input" id="login-remember">
+                  <span class="custom-checkbox-mark">
+                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                      <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                  </span>
+                  <span class="checkbox-text">Remember me</span>
+                </label>
+                <a href="#forgot" class="subtle-link" id="forgotPwdLink">
+                  Forgot password?
+                </a>
+              </div>
+
+              <!-- Primary Submit Button -->
+              <button type="submit" class="btn-luminous-submit" id="loginSubmitBtn">
+                <span class="btn-text-content">
+                  <span>Sign in</span>
+                  <!-- ArrowRight Icon -->
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="arrow-right-svg">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                  </svg>
+                </span>
+                <span class="btn-glow-layer"></span>
+              </button>
+
+              <!-- Minimal Divider -->
+              <div class="minimal-divider">
+                <span class="divider-line"></span>
+                <span class="divider-text">or</span>
+                <span class="divider-line"></span>
+              </div>
+
+              <!-- Google Sign In Button -->
+              <button type="button" class="btn-secondary-social" id="googleSignInBtn">
+                <div class="social-btn-inner">
+                  <!-- Google G Logo -->
+                  <svg width="16" height="16" viewBox="0 0 24 24" class="google-logo-svg">
+                    <path fill="#EA4335" d="M12 5c1.6 0 3 .6 4.1 1.6l3.1-3.1C17.3 1.7 14.8 1 12 1 7.5 1 3.7 3.6 1.9 7.3l3.7 2.9C6.5 7.4 9 5 12 5z"/>
+                    <path fill="#4285F4" d="M23.5 12.3c0-.8-.1-1.6-.2-2.3H12v4.5h6.5c-.3 1.5-1.1 2.8-2.4 3.7l3.7 2.9c2.2-2 3.7-5.1 3.7-8.8z"/>
+                    <path fill="#FBBC05" d="M5.6 14.8c-.2-.7-.4-1.5-.4-2.3 0-.8.1-1.6.4-2.3L1.9 7.3C.7 9.7 0 12.3 0 15.2c0 2.9.7 5.5 1.9 7.9l3.7-2.9z"/>
+                    <path fill="#34A853" d="M12 23.5c3.2 0 6-1.1 8-3l-3.7-2.9c-1.1.7-2.5 1.2-4.3 1.2-3 0-5.5-2-6.4-4.8L1.9 17C3.7 20.7 7.5 23.5 12 23.5z"/>
+                  </svg>
+                  <span>Sign in with Google</span>
+                  <div class="social-sheen"></div>
+                </div>
+              </button>
+
+              <!-- Sign Up Switch Prompt -->
+              <p class="auth-switch-prompt">
+                Don't have an account?
+                <a href="{{ url_for('auth.register') }}" class="link-animated-underline" id="linkToRegister">
+                  <span>Sign up</span>
+                  <span class="underline-tracer"></span>
+                </a>
+              </p>
+            </form>
+          </div>
+
+          <!-- REGISTER FORM -->
+          <div class="auth-panel-pane {% if active_tab == 'register' %}active{% endif %}" id="paneRegister" role="tabpanel" aria-labelledby="pillRegister">
+            <form method="POST" action="{{ url_for('auth.register') }}" class="auth-modern-form" novalidate id="registerForm">
+              <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+              <!-- Email Field -->
+              <div class="input-field-group" data-input="email">
+                <div class="input-highlight-border"></div>
+                <div class="input-box-wrapper">
+                  <svg class="field-icon-left" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect width="20" height="16" x="2" y="4" rx="2"></rect>
+                    <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+                  </svg>
+                  <input
+                    type="email"
+                    id="register-email"
+                    name="email"
+                    class="card-text-input"
+                    placeholder="Work or clinic email"
+                    value="{{ email or '' }}"
+                    required
+                    autocomplete="username"
+                  >
+                </div>
+              </div>
+
+              <!-- Set Password Field -->
+              <div class="input-field-group" data-input="password">
+                <div class="input-highlight-border"></div>
+                <div class="input-box-wrapper">
+                  <svg class="field-icon-left" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect>
+                    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                  </svg>
+                  <input
+                    type="password"
+                    id="register-password"
+                    name="password"
+                    class="card-text-input"
+                    placeholder="Set password (min 4 chars)"
+                    required
+                    autocomplete="new-password"
+                  >
+                  <button type="button" class="btn-pwd-eye" data-target="register-password" title="Toggle password visibility" aria-label="Toggle password visibility">
+                    <svg class="eye-open-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path>
+                      <circle cx="12" cy="12" r="3"></circle>
+                    </svg>
+                    <svg class="eye-closed-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;">
+                      <path d="m15 18-.722-3.25"></path>
+                      <path d="M2 8a10.645 10.645 0 0 0 20 0"></path>
+                      <path d="m20 15-1.726-2.05"></path>
+                      <path d="m4 15 1.726-2.05"></path>
+                      <path d="m9 18 .722-3.25"></path>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Confirm Password Field -->
+              <div class="input-field-group" data-input="confirm_password">
+                <div class="input-highlight-border"></div>
+                <div class="input-box-wrapper">
+                  <svg class="field-icon-left" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect>
+                    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                  </svg>
+                  <input
+                    type="password"
+                    id="register-confirm"
+                    name="confirm_password"
+                    class="card-text-input"
+                    placeholder="Confirm password"
+                    required
+                    autocomplete="new-password"
+                  >
+                  <button type="button" class="btn-pwd-eye" data-target="register-confirm" title="Toggle password visibility" aria-label="Toggle password visibility">
+                    <svg class="eye-open-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path>
+                      <circle cx="12" cy="12" r="3"></circle>
+                    </svg>
+                    <svg class="eye-closed-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;">
+                      <path d="m15 18-.722-3.25"></path>
+                      <path d="M2 8a10.645 10.645 0 0 0 20 0"></path>
+                      <path d="m20 15-1.726-2.05"></path>
+                      <path d="m4 15 1.726-2.05"></path>
+                      <path d="m9 18 .722-3.25"></path>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Submit Register Button -->
+              <button type="submit" class="btn-luminous-submit" id="registerSubmitBtn">
+                <span class="btn-text-content">
+                  <span>Create account</span>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="arrow-right-svg">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                  </svg>
+                </span>
+                <span class="btn-glow-layer"></span>
+              </button>
+
+              <div class="minimal-divider">
+                <span class="divider-line"></span>
+                <span class="divider-text">or</span>
+                <span class="divider-line"></span>
+              </div>
+
+              <!-- Sign In Switch Prompt -->
+              <p class="auth-switch-prompt">
+                Already have an account?
+                <a href="{{ url_for('auth.login') }}" class="link-animated-underline" id="linkToLogin">
+                  <span>Sign in</span>
+                  <span class="underline-tracer"></span>
+                </a>
+              </p>
+            </form>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/auth.js') }}"></script>
+{% endblock %}

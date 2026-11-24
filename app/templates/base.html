@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
+  <title>{% block title %}AnemiaScan – Conjunctival Anemia Screening{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+  {% block extra_css %}{% endblock %}
+</head>
+<body>
+  <header class="app-header">
+    <div class="header-container">
+      <div class="brand-group">
+        <a href="{{ url_for('dashboard.dashboard_view') if session.get('user_id') else url_for('auth.auth_view') }}" class="brand-link">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M4 8V5a1 1 0 0 1 1-1h3"/>
+            <path d="M16 4h3a1 1 0 0 1 1 1v3"/>
+            <path d="M20 16v3a1 1 0 0 1-1 1h-3"/>
+            <path d="M8 20H5a1 1 0 0 1-1-1v-3"/>
+            <path d="M6.5 12c1.9-3.2 3.8-4.8 5.5-4.8s3.6 1.6 5.5 4.8c-1.9 3.2-3.8 4.8-5.5 4.8s-3.6-1.6-5.5-4.8z"/>
+            <circle cx="12" cy="12" r="2.2" fill="currentColor" fill-opacity="0.3"/>
+            <line x1="3" y1="12" x2="21" y2="12" stroke-dasharray="1.5 1.5"/>
+          </svg>
+          <span>AnemiaScan</span>
+          <span class="brand-badge">Clinical AI</span>
+        </a>
+        <div class="system-status-indicator" title="Optical Biometrics Module Online">
+          <span class="status-pulse-dot"></span>
+          <span>Scanner Ready</span>
+        </div>
+      </div>
+
+      <nav class="header-nav">
+        {% if session.get('user_id') %}
+          <div class="user-avatar-badge">
+            <div class="user-avatar-circle">{{ session.get('user_email', 'U')[0]|upper }}</div>
+            <span class="user-greeting">{{ session.get('user_email') }}</span>
+          </div>
+          <a href="{{ url_for('auth.logout') }}" class="btn-header-logout" id="header-logout-btn">Sign out</a>
+        {% else %}
+          <span class="user-greeting">Clinical Screening Tool</span>
+        {% endif %}
+      </nav>
+    </div>
+  </header>
+
+  <main class="main-content">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="flash-container" role="region" aria-label="Notifications">
+          {% for category, message in messages %}
+            <div class="flash-message {{ category }}">
+              <span>{{ message }}</span>
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    {% block content %}{% endblock %}
+
+    <aside class="disclaimer-banner" role="note">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0; margin-top: 2px;">
+        <circle cx="12" cy="12" r="10"></circle>
+        <line x1="12" y1="8" x2="12" y2="12"></line>
+        <line x1="12" y1="16" x2="12.01" y2="16"></line>
+      </svg>
+      <div>
+        <strong>Medical disclaimer:</strong> This application is a non-invasive screening aid and not a medical diagnosis. Confirm any screening result with a validated laboratory blood test and a qualified healthcare professional.
+      </div>
+    </aside>
+  </main>
+
+  <footer class="app-footer">
+    <div class="footer-container">
+      <span>AnemiaScan &copy; Confidential Patient Healthcare Screening System</span>
+      <span>Designed for clinical and field screening assistance</span>
+    </div>
+  </footer>
+
+  {% block extra_js %}{% endblock %}
+</body>
+</html>

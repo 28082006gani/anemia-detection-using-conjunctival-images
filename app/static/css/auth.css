@@ -1,0 +1,875 @@
+/* ==========================================================================
+   ANEMIASCAN - AUTHENTICATION / LOGIN PAGE
+   Full-Bleed White & Blue Gradient Theme (No Header, No Footer)
+   Headline: "Welcome to AnemiaScan"
+   ========================================================================== */
+
+/* Completely Remove Header, Footer, and Disclaimer Banner on Auth Page */
+body.auth-dark-mode .app-header,
+body.auth-dark-mode .app-footer,
+body.auth-dark-mode .disclaimer-banner,
+body.auth-gradient-theme .app-header,
+body.auth-gradient-theme .app-footer,
+body.auth-gradient-theme .disclaimer-banner {
+  display: none !important;
+}
+
+/* Full-Bleed Viewport Setup */
+html:has(body.auth-dark-mode),
+html:has(body.auth-gradient-theme) {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  background: linear-gradient(135deg, #0B5E75 0%, #0F7A8C 45%, #0A4F60 85%, #063440 100%) !important;
+}
+
+body.auth-dark-mode,
+body.auth-gradient-theme {
+  min-height: 100vh !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow-x: hidden !important;
+  background: linear-gradient(135deg, #0B5E75 0%, #0F7A8C 45%, #0A4F60 85%, #063440 100%) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+
+body.auth-dark-mode .main-content,
+body.auth-gradient-theme .main-content {
+  min-height: 100vh !important;
+  width: 100% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  position: relative !important;
+}
+
+/* Fixed Floating Notification Banners */
+body.auth-dark-mode .flash-container,
+body.auth-gradient-theme .flash-container {
+  position: fixed !important;
+  top: 24px !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  width: 90% !important;
+  max-width: 440px !important;
+  z-index: 1000 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+body.auth-dark-mode .flash-message,
+body.auth-gradient-theme .flash-message {
+  background: rgba(7, 48, 60, 0.92) !important;
+  border: 1px solid rgba(255, 255, 255, 0.28) !important;
+  color: #ffffff !important;
+  backdrop-filter: blur(14px);
+  box-shadow: 0 10px 36px rgba(4, 27, 34, 0.55);
+  border-radius: 12px;
+}
+
+body.auth-dark-mode .flash-message.alert,
+body.auth-gradient-theme .flash-message.alert {
+  border-color: rgba(239, 68, 68, 0.5) !important;
+  background: rgba(45, 12, 18, 0.92) !important;
+  color: #fca5a5 !important;
+}
+
+body.auth-dark-mode .flash-message.success,
+body.auth-gradient-theme .flash-message.success {
+  border-color: rgba(34, 197, 94, 0.5) !important;
+  background: rgba(10, 42, 28, 0.92) !important;
+  color: #86efac !important;
+}
+
+/* ==========================================================================
+   PAGE UNIVERSE & AMBIENT GLOWS (Full Page Coverage)
+   ========================================================================== */
+
+.auth-page-universe {
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 30px 16px;
+  background: linear-gradient(135deg, #0B5E75 0%, #0F7A8C 45%, #0A4F60 85%, #063440 100%);
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+/* White and blue radiant backdrop gradient covering the whole page */
+.auth-gradient-bg {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 12%, rgba(255, 255, 255, 0.38) 0%, rgba(225, 241, 244, 0.24) 28%, rgba(15, 122, 140, 0.55) 65%, #0B5E75 100%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Soft-light noise overlay */
+.auth-noise-overlay {
+  position: absolute;
+  inset: 0;
+  opacity: 0.035;
+  mix-blend-mode: soft-light;
+  pointer-events: none;
+  z-index: 2;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+}
+
+/* Luminous White & Cyan Ambient Orbs */
+.glow-orb {
+  position: absolute;
+  pointer-events: none;
+  border-radius: 50%;
+  z-index: 2;
+}
+
+.top-orb {
+  top: -120px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 110vw;
+  max-width: 1300px;
+  height: 60vh;
+  border-bottom-left-radius: 50%;
+  border-bottom-right-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.45) 0%, rgba(225, 241, 244, 0.28) 45%, transparent 75%);
+  filter: blur(75px);
+}
+
+.top-orb-pulse {
+  top: -90px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90vw;
+  max-width: 1000px;
+  height: 55vh;
+  border-bottom-left-radius: 50%;
+  border-bottom-right-radius: 50%;
+  background: rgba(225, 241, 244, 0.25);
+  filter: blur(60px);
+  animation: orbPulse 8s ease-in-out infinite alternate;
+}
+
+.bottom-orb {
+  bottom: -150px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80vw;
+  max-width: 900px;
+  height: 80vh;
+  border-top-left-radius: 50%;
+  border-top-right-radius: 50%;
+  background: rgba(15, 122, 140, 0.4);
+  filter: blur(70px);
+  animation: orbFloat 6s ease-in-out infinite alternate 1s;
+}
+
+.ambient-blob-left {
+  top: 25%;
+  left: 12%;
+  width: 320px;
+  height: 320px;
+  background: rgba(255, 255, 255, 0.12);
+  filter: blur(90px);
+  animation: blobFade 4s ease-in-out infinite alternate;
+}
+
+.ambient-blob-right {
+  bottom: 25%;
+  right: 12%;
+  width: 320px;
+  height: 320px;
+  background: rgba(225, 241, 244, 0.15);
+  filter: blur(90px);
+  animation: blobFade 4s ease-in-out infinite alternate 2s;
+}
+
+@keyframes orbPulse {
+  0% { opacity: 0.25; transform: translateX(-50%) scale(0.98); }
+  100% { opacity: 0.55; transform: translateX(-50%) scale(1.03); }
+}
+
+@keyframes orbFloat {
+  0% { opacity: 0.3; transform: translateX(-50%) scale(1); }
+  100% { opacity: 0.6; transform: translateX(-50%) scale(1.08); }
+}
+
+@keyframes blobFade {
+  0% { opacity: 0.25; }
+  100% { opacity: 0.65; }
+}
+
+/* ==========================================================================
+   3D CARD SCENE & TILT CONTAINER
+   ========================================================================== */
+
+.card-3d-scene {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  max-width: 420px;
+  perspective: 1500px;
+}
+
+.card-3d-tilt {
+  position: relative;
+  width: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.15s ease-out;
+  will-change: transform;
+}
+
+.card-glow-shell {
+  position: relative;
+  border-radius: 20px;
+  transition: box-shadow 0.4s ease;
+}
+
+.card-glow-shell:hover {
+  box-shadow: 0 0 45px 6px rgba(225, 241, 244, 0.28), 0 0 75px 12px rgba(15, 122, 140, 0.35);
+}
+
+/* ==========================================================================
+   TRAVELING WHITE LIGHT BEAM BORDERS
+   ========================================================================== */
+
+.light-beam-track {
+  position: absolute;
+  inset: -1.5px;
+  border-radius: 20px;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.light-beam {
+  position: absolute;
+  pointer-events: none;
+}
+
+/* Top Horizontal Beam */
+.beam-top {
+  top: 0;
+  left: -50%;
+  height: 3px;
+  width: 50%;
+  background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 1) 50%, transparent 100%);
+  filter: blur(1.5px);
+  animation: runBeamTop 3s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+/* Right Vertical Beam */
+.beam-right {
+  top: -50%;
+  right: 0;
+  width: 3px;
+  height: 50%;
+  background: linear-gradient(180deg, transparent 0%, rgba(255, 255, 255, 1) 50%, transparent 100%);
+  filter: blur(1.5px);
+  animation: runBeamRight 3s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  animation-delay: 0.75s;
+}
+
+/* Bottom Horizontal Beam */
+.beam-bottom {
+  bottom: 0;
+  right: -50%;
+  height: 3px;
+  width: 50%;
+  background: linear-gradient(270deg, transparent 0%, rgba(255, 255, 255, 1) 50%, transparent 100%);
+  filter: blur(1.5px);
+  animation: runBeamBottom 3s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  animation-delay: 1.5s;
+}
+
+/* Left Vertical Beam */
+.beam-left {
+  bottom: -50%;
+  left: 0;
+  width: 3px;
+  height: 50%;
+  background: linear-gradient(0deg, transparent 0%, rgba(255, 255, 255, 1) 50%, transparent 100%);
+  filter: blur(1.5px);
+  animation: runBeamLeft 3s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  animation-delay: 2.25s;
+}
+
+@keyframes runBeamTop {
+  0% { left: -50%; opacity: 0.2; }
+  50% { opacity: 0.95; filter: blur(2.5px); }
+  100% { left: 100%; opacity: 0.2; }
+}
+
+@keyframes runBeamRight {
+  0% { top: -50%; opacity: 0.2; }
+  50% { opacity: 0.95; filter: blur(2.5px); }
+  100% { top: 100%; opacity: 0.2; }
+}
+
+@keyframes runBeamBottom {
+  0% { right: -50%; opacity: 0.2; }
+  50% { opacity: 0.95; filter: blur(2.5px); }
+  100% { right: 100%; opacity: 0.2; }
+}
+
+@keyframes runBeamLeft {
+  0% { bottom: -50%; opacity: 0.2; }
+  50% { opacity: 0.95; filter: blur(2.5px); }
+  100% { bottom: 100%; opacity: 0.2; }
+}
+
+/* Luminous corner spots */
+.corner-glow {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.85);
+  box-shadow: 0 0 6px rgba(255, 255, 255, 0.9);
+  pointer-events: none;
+  animation: cornerBlink 2.4s ease-in-out infinite alternate;
+}
+
+.corner-tl { top: 0; left: 0; width: 6px; height: 6px; filter: blur(1px); }
+.corner-tr { top: 0; right: 0; width: 8px; height: 8px; filter: blur(1.5px); animation-delay: 0.6s; }
+.corner-br { bottom: 0; right: 0; width: 8px; height: 8px; filter: blur(1.5px); animation-delay: 1.2s; }
+.corner-bl { bottom: 0; left: 0; width: 6px; height: 6px; filter: blur(1px); animation-delay: 1.8s; }
+
+@keyframes cornerBlink {
+  0% { opacity: 0.35; transform: scale(0.85); }
+  100% { opacity: 0.95; transform: scale(1.15); }
+}
+
+/* ==========================================================================
+   GLASSMORPHISM CARD CORE
+   ========================================================================== */
+
+.glass-card-surface {
+  position: relative;
+  background: rgba(7, 48, 60, 0.68);
+  backdrop-filter: blur(28px) saturate(180%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  box-shadow: 0 25px 50px -12px rgba(4, 27, 34, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.28);
+  padding: 30px 26px 26px;
+  overflow: hidden;
+  z-index: 4;
+}
+
+/* Diamond/Grid Texture */
+.card-inner-grid {
+  position: absolute;
+  inset: 0;
+  opacity: 0.04;
+  pointer-events: none;
+  background-image: linear-gradient(135deg, white 0.5px, transparent 0.5px), linear-gradient(45deg, white 0.5px, transparent 0.5px);
+  background-size: 30px 30px;
+  z-index: 1;
+}
+
+/* ==========================================================================
+   HEADER, LOGO & WELCOME TO ANEMIASCAN
+   ========================================================================== */
+
+.auth-card-header {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  margin-bottom: 22px;
+}
+
+.brand-logo-badge {
+  position: relative;
+  width: 50px;
+  height: 50px;
+  margin: 0 auto 12px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255, 255, 255, 0.35);
+  background: rgba(255, 255, 255, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  box-shadow: 0 0 24px rgba(225, 241, 244, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  animation: logoBreath 4s ease-in-out infinite alternate;
+}
+
+.brand-logo-inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+}
+
+.brand-icon-svg {
+  stroke: #ffffff;
+  filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.7));
+}
+
+.logo-inner-shine {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.3) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+@keyframes logoBreath {
+  0% { transform: scale(0.97); box-shadow: 0 0 16px rgba(225, 241, 244, 0.25); }
+  100% { transform: scale(1.03); box-shadow: 0 0 28px rgba(225, 241, 244, 0.5); }
+}
+
+.auth-title-gradient {
+  font-size: 23px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin: 0 0 4px;
+  background: linear-gradient(180deg, #ffffff 0%, #E1F1F4 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.auth-subtitle {
+  font-size: 13px;
+  color: rgba(225, 241, 244, 0.85);
+  margin: 0 0 18px;
+}
+
+/* Nav Pills (Sign in / Create Account) */
+.auth-nav-pills {
+  display: inline-flex;
+  background: rgba(4, 27, 34, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 9999px;
+  padding: 3px;
+  gap: 4px;
+}
+
+.nav-pill-btn {
+  background: transparent;
+  border: none;
+  border-radius: 9999px;
+  padding: 6px 16px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.75);
+  cursor: pointer;
+  transition: all 0.25s ease;
+  font-family: inherit;
+}
+
+.nav-pill-btn:hover {
+  color: #ffffff;
+}
+
+.nav-pill-btn.active {
+  background: #ffffff;
+  color: #0B5E75;
+  font-weight: 700;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+}
+
+/* ==========================================================================
+   PANEL CONTENT & INPUT FIELDS
+   ========================================================================== */
+
+.auth-panel-pane {
+  display: none;
+  position: relative;
+  z-index: 2;
+}
+
+.auth-panel-pane.active {
+  display: block;
+  animation: fadeInPane 0.3s ease-out;
+}
+
+@keyframes fadeInPane {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.auth-modern-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* Input Field Group with Hover/Focus Outline */
+.input-field-group {
+  position: relative;
+  border-radius: 10px;
+  transition: transform 0.2s ease;
+}
+
+.input-field-group:hover {
+  transform: scale(1.008);
+}
+
+.input-highlight-border {
+  position: absolute;
+  inset: -1.5px;
+  border-radius: 11px;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.5), rgba(225, 241, 244, 0.2), rgba(255, 255, 255, 0.5));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.input-field-group:hover .input-highlight-border,
+.input-field-group.focused .input-highlight-border {
+  opacity: 1;
+}
+
+/* Clean White Input Pill Wrapper */
+.input-box-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: #ffffff;
+  border: 1.5px solid rgba(225, 241, 244, 0.6);
+  border-radius: 10px;
+  transition: all 0.25s ease;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(4, 27, 34, 0.12);
+}
+
+.input-field-group.focused .input-box-wrapper {
+  background: #ffffff;
+  border-color: #0F7A8C;
+  box-shadow: 0 0 0 3px rgba(225, 241, 244, 0.7), 0 4px 14px rgba(4, 27, 34, 0.16);
+}
+
+.field-icon-left {
+  position: absolute;
+  left: 12px;
+  color: #0B5E75;
+  pointer-events: none;
+  transition: color 0.25s ease;
+  flex-shrink: 0;
+}
+
+.input-field-group.focused .field-icon-left {
+  color: #0F7A8C;
+}
+
+.card-text-input {
+  width: 100%;
+  height: 42px;
+  background: transparent;
+  border: none;
+  outline: none;
+  padding: 0 38px 0 38px;
+  color: #0F2D37;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: inherit;
+  transition: color 0.2s ease;
+}
+
+.card-text-input::placeholder {
+  color: #7A8F99;
+}
+
+/* Chrome autofill background override */
+.card-text-input:-webkit-autofill,
+.card-text-input:-webkit-autofill:hover, 
+.card-text-input:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0px 1000px #ffffff inset !important;
+  -webkit-text-fill-color: #0F2D37 !important;
+}
+
+/* Password eye button */
+.btn-pwd-eye {
+  position: absolute;
+  right: 10px;
+  background: transparent;
+  border: none;
+  color: #5B6F7A;
+  cursor: pointer;
+  padding: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: color 0.2s ease;
+}
+
+.btn-pwd-eye:hover {
+  color: #0B5E75;
+}
+
+/* ==========================================================================
+   OPTIONS ROW (Remember Me & Forgot Password)
+   ========================================================================== */
+
+.auth-options-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2px;
+  font-size: 12.5px;
+}
+
+.custom-checkbox-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.custom-checkbox-input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.custom-checkbox-mark {
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
+  background: #ffffff;
+  border: 1px solid rgba(225, 241, 244, 0.8);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.custom-checkbox-mark svg {
+  stroke: #0B5E75;
+  opacity: 0;
+  transform: scale(0.6);
+  transition: all 0.2s ease;
+}
+
+.custom-checkbox-input:checked + .custom-checkbox-mark {
+  background: #ffffff;
+  border-color: #0F7A8C;
+}
+
+.custom-checkbox-input:checked + .custom-checkbox-mark svg {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.checkbox-text {
+  color: rgba(225, 241, 244, 0.9);
+  transition: color 0.2s ease;
+}
+
+.custom-checkbox-label:hover .checkbox-text {
+  color: #ffffff;
+}
+
+.subtle-link {
+  color: rgba(225, 241, 244, 0.85);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.subtle-link:hover {
+  color: #ffffff;
+  text-decoration: underline;
+}
+
+/* ==========================================================================
+   BUTTONS (Luminous White Submit & Frosted Google Button)
+   ========================================================================== */
+
+.btn-luminous-submit {
+  position: relative;
+  width: 100%;
+  height: 42px;
+  border-radius: 10px;
+  background: #ffffff;
+  color: #0B5E75;
+  border: none;
+  font-size: 14.5px;
+  font-weight: 700;
+  cursor: pointer;
+  overflow: hidden;
+  margin-top: 4px;
+  box-shadow: 0 4px 18px rgba(4, 27, 34, 0.25);
+  transition: transform 0.2s ease, box-shadow 0.3s ease, background 0.2s ease, color 0.2s ease;
+  font-family: inherit;
+}
+
+.btn-luminous-submit:hover {
+  transform: scale(1.015);
+  background: #ffffff;
+  color: #073B4C;
+  box-shadow: 0 6px 26px rgba(255, 255, 255, 0.5);
+}
+
+.btn-luminous-submit:active {
+  transform: scale(0.985);
+}
+
+.btn-text-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  height: 100%;
+}
+
+.arrow-right-svg {
+  transition: transform 0.25s ease;
+}
+
+.btn-luminous-submit:hover .arrow-right-svg {
+  transform: translateX(3px);
+}
+
+/* Minimal Divider */
+.minimal-divider {
+  display: flex;
+  align-items: center;
+  margin: 6px 0;
+}
+
+.divider-line {
+  flex-grow: 1;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.divider-text {
+  padding: 0 12px;
+  font-size: 12px;
+  color: rgba(225, 241, 244, 0.65);
+  animation: pulseDivider 3s ease-in-out infinite alternate;
+}
+
+@keyframes pulseDivider {
+  0% { opacity: 0.6; }
+  100% { opacity: 0.95; }
+}
+
+/* Secondary Social Button (Google) */
+.btn-secondary-social {
+  position: relative;
+  width: 100%;
+  height: 40px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.25s ease;
+  font-family: inherit;
+}
+
+.btn-secondary-social:hover {
+  background: rgba(255, 255, 255, 0.22);
+  border-color: rgba(255, 255, 255, 0.4);
+  color: #ffffff;
+  transform: scale(1.01);
+}
+
+.social-btn-inner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  height: 100%;
+}
+
+.google-logo-svg {
+  flex-shrink: 0;
+}
+
+.social-sheen {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.15) 50%, transparent 100%);
+  transform: translateX(-100%);
+  transition: transform 0.6s ease;
+  pointer-events: none;
+}
+
+.btn-secondary-social:hover .social-sheen {
+  transform: translateX(100%);
+}
+
+/* ==========================================================================
+   SWITCH PROMPT (Sign up / Sign in link with animated underline)
+   ========================================================================== */
+
+.auth-switch-prompt {
+  text-align: center;
+  font-size: 12px;
+  color: rgba(225, 241, 244, 0.8);
+  margin: 6px 0 0;
+}
+
+.link-animated-underline {
+  position: relative;
+  display: inline-block;
+  color: #ffffff;
+  font-weight: 600;
+  text-decoration: none;
+  margin-left: 4px;
+  transition: color 0.25s ease;
+}
+
+.link-animated-underline:hover {
+  color: #E1F1F4;
+}
+
+.underline-tracer {
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 0;
+  height: 1.5px;
+  background-color: #ffffff;
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.link-animated-underline:hover .underline-tracer {
+  width: 100%;
+}
+
+/* ==========================================================================
+   RESPONSIVE OPTIMIZATIONS
+   ========================================================================== */
+
+@media (max-width: 480px) {
+  .auth-page-universe {
+    padding: 20px 12px 20px;
+  }
+
+  .glass-card-surface {
+    padding: 24px 18px 20px;
+    border-radius: 16px;
+  }
+
+  .card-3d-scene {
+    max-width: 100%;
+  }
+
+  .auth-title-gradient {
+    font-size: 21px;
+  }
+}

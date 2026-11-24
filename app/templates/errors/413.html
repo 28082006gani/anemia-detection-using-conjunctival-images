@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %}File Too Large – AnemiaScan{% endblock %}
+
+{% block content %}
+<div class="card" style="text-align: center; max-width: 600px; margin: 40px auto; padding: 40px 24px;">
+  <h1 style="color: var(--alert); font-size: 48px; margin-bottom: 8px;">413</h1>
+  <h2>File Size Exceeded</h2>
+  <p class="text-muted" style="margin: 0 auto 24px;">The uploaded image exceeds the maximum permitted limit of 5 MB. Please choose a smaller PNG or JPG image.</p>
+  <div>
+    <a href="{{ url_for('dashboard.dashboard_view') }}" class="btn btn-primary">Return to scan form</a>
+  </div>
+</div>
+{% endblock %}

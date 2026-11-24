@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %}Bad Request – AnemiaScan{% endblock %}
+
+{% block content %}
+<div class="card" style="text-align: center; max-width: 600px; margin: 40px auto; padding: 40px 24px;">
+  <h1 style="color: var(--alert); font-size: 48px; margin-bottom: 8px;">400</h1>
+  <h2>Invalid Request</h2>
+  <p class="text-muted" style="margin: 0 auto 24px;">The request could not be processed due to invalid parameters or an expired security token.</p>
+  <div>
+    <a href="{{ url_for('dashboard.dashboard_view') if session.get('user_id') else url_for('auth.auth_view') }}" class="btn btn-primary">Return to safe page</a>
+  </div>
+</div>
+{% endblock %}
